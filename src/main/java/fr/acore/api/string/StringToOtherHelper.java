@@ -44,7 +44,7 @@ public interface StringToOtherHelper {
             return false;
         }
     }
-    
+
     public default boolean isBoolean(String value){
         try{
             Boolean.valueOf(value);
