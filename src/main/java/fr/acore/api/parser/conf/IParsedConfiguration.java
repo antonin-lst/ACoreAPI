@@ -3,6 +3,7 @@ package fr.acore.api.parser.conf;
 import fr.acore.api.parser.exception.CopyConfigurationException;
 import fr.acore.api.parser.exception.LoadConfigurationException;
 import fr.acore.api.parser.exception.SaveConfigurationException;
+import fr.acore.api.parser.node.INode;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -27,4 +28,7 @@ public interface IParsedConfiguration<T> {
     public void save() throws SaveConfigurationException;
     //copy le nouvelle etat du flux dans un autre flux
     public T copy() throws CopyConfigurationException;
+
+    //getter des nodes par leur chemin d'access par example rsection1.encsection.node1
+    public INode getNodeByRoute(String route);
 }

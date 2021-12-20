@@ -1,10 +1,11 @@
 package fr.acore.api.test.list;
+
 import fr.acore.api.list.ListHelper;
-import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ListHelperTest implements ListHelper {

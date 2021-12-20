@@ -6,9 +6,9 @@ Interface d'une node avec une value
 
  */
 
-import fr.acore.api.string.StringToOtherHelper;
+import fr.acore.api.string.IStringHelper;
 
-public interface INodeValue extends INode, StringToOtherHelper {
+public interface INodeValue extends INode, IStringHelper {
 
     //getter de la value original
     public String getValue();
@@ -36,7 +36,7 @@ public interface INodeValue extends INode, StringToOtherHelper {
         return (T) Enum.valueOf(enumClazz, getAsString());
     }
 
-    
+
     //check si la value de la node est null
     public boolean isNull();
 

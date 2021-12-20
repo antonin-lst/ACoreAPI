@@ -2,12 +2,34 @@ package fr.acore.api.string;
 
 /*
 
-Helper pour valider la validitée d'une chaine de caractere avant d'etre parser en quelque chose d'autre
-
+Helper chaines de caracteres
 
  */
 
-public interface StringToOtherHelper {
+import java.util.ArrayList;
+import java.util.List;
+
+public interface IStringHelper {
+
+    //permet de remplacer un regex dans une chaine de caractere et dans une liste de chaines
+    public default List<String> replace(List<String> chaines, String regex, String data){
+        List<String> result = new ArrayList<>();
+        for(String target : chaines){
+            result.add(replace(target, regex, data));
+        }
+        return result;
+    }
+
+    public default String replace(String chaine, String regex, String data) {
+        chaine = chaine.replace(regex, data);
+        return chaine;
+    }
+
+    /*
+
+    Validation de type de données dans les chaines de caractéres pour des cast
+
+     */
 
     public default boolean isInt(String value){
         try{
@@ -46,12 +68,9 @@ public interface StringToOtherHelper {
     }
 
     public default boolean isBoolean(String value){
-        try{
-            Boolean.valueOf(value);
-            return true;
-        }catch (Exception ex){
-            return false;
-        }
+        if(value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) return true;
+
+        return false;
     }
 
 
