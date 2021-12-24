@@ -11,4 +11,6 @@ public interface IEncapsulatedIO {
     public OutputStream getOutputStream();
     public void setOutputStream(OutputStream outputStream);
 
+    public void close();
+
 }

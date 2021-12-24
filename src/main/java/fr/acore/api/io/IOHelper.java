@@ -1,5 +1,6 @@
 package fr.acore.api.io;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -33,6 +34,26 @@ public interface IOHelper {
             @Override
             public void setOutputStream(OutputStream outputStream) {
                 this.internalOutputStream = outputStream;
+            }
+
+            @Override
+            public void close() {
+                if(internalInputStream != null){
+                    try {
+                        internalInputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if(internalOutputStream != null){
+                    try {
+                        internalOutputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
         };
     }

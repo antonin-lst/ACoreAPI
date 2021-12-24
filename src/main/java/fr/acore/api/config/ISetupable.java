@@ -23,7 +23,7 @@ Interface d'une classe de configuration
 public interface ISetupable extends IStringHelper {
 
 	//Object qui englobe un fichier de configuration cible parsée en ram
-	public IParsedConfiguration<?> getParsedConfiguration();
+	public IParsedConfiguration<?,?> getParsedConfiguration();
 
 	//charger le fichier de configuration
 	public void load();
