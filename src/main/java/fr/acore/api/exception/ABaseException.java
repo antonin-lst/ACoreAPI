@@ -4,6 +4,14 @@ import fr.acore.api.logger.IBaseLogger;
 
 public class ABaseException extends Exception{
 
+
+    private static IBaseLogger defaultThrowLogger;
+
+    public static void setDefaultThrowLogger(IBaseLogger logger){
+        defaultThrowLogger = logger;
+    }
+
+
     private String message;
 
     private IBaseLogger throwableLogger;
@@ -12,6 +20,7 @@ public class ABaseException extends Exception{
 
     public ABaseException(String message){
         this.message = message;
+        throwableLogger = defaultThrowLogger;
     }
 
     public ABaseException(String message, IBaseLogger throwableLogger){
@@ -34,6 +43,10 @@ public class ABaseException extends Exception{
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public void log(){
+        getThrowableLogger().logErr(message);
     }
 
 }

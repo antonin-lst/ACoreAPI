@@ -10,7 +10,7 @@ import java.util.List;
 
      */
 
-public interface IVersionHelper {
+public interface VersionHelper {
 
     //récupération de la version la plus récente dans une liste de version
     public default IVersion getLatestVersion(List<IVersion> versions){

@@ -2,10 +2,13 @@ package fr.acore.api.logger.log;
 
 import fr.acore.api.logger.level.ILogLevel;
 
-public class ILog {
+import java.util.List;
 
-    private ILogLevel logLevel;
-    private String[] contents;
+public interface ILog {
+
+    public ILogLevel getLogLevel();
+    public List<String> getContents();
+    public void setContents(List<String> contents);
 
 
 }

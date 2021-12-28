@@ -3,8 +3,7 @@ package fr.acore.api.storage.database.driver;
 public enum DatabaseDriver {
 	
 	MYSQL("jdbc:mysql://"),
-	SQLITE("jdbc:sqlite:"),
-	JSON("");
+	SQLITE("jdbc:sqlite:");
 	
 	private String driver;
 	

@@ -34,4 +34,13 @@ public interface ListHelper {
         return result;
     }
 
+    public default List<String> convertToListedString(Object... args){
+        return convertToListedString(new ArrayList<>(), args);
+    }
+
+    public default List<String> convertToListedString(List<String> origin, Object... args){
+        Arrays.stream(args).forEach((arg) -> origin.add(arg.toString()));
+        return origin;
+    }
+
 }

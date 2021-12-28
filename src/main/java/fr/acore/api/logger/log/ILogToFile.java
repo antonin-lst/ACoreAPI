@@ -1,7 +1,11 @@
 package fr.acore.api.logger.log;
 
-public class ILogToFile {
+import fr.acore.api.logger.IFileLogger;
 
-    private ILog encapsuledLog;
+import java.io.File;
 
+public interface ILogToFile {
+
+    public ILog getEncapsulatedLog();
+    public File getDestination();
 }
