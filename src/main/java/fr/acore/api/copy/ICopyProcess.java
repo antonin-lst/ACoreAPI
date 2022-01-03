@@ -42,7 +42,7 @@ public interface ICopyProcess<T> {
 
     public static interface IComplexCopyProcess<T, U, V> extends ICopyProcess<T>{
 
-        public T copy(T ac, U complex1, V complex2);
+        public T copy(U complex1, V complex2);
 
     }
 }

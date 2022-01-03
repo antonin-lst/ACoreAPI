@@ -18,4 +18,8 @@ public interface IFileLogger extends IBaseLogger{
         log(log.getEncapsulatedLog(), transformers);
     }
 
+    public void enablePrint();
+    public void disablePrint();
+    public boolean isPrintEnable();
+
 }

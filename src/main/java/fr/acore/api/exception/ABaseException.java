@@ -1,20 +1,23 @@
 package fr.acore.api.exception;
 
 import fr.acore.api.logger.IBaseLogger;
+import fr.acore.api.logger.IThrowableLogger;
+import fr.acore.api.logger.transformer.ILogTransformer;
+import fr.acore.api.reflection.ReflectionHelper;
 
-public class ABaseException extends Exception{
+import java.util.Arrays;
 
+public class ABaseException extends Exception implements ReflectionHelper {
 
-    private static IBaseLogger defaultThrowLogger;
+    private static IThrowableLogger defaultThrowLogger;
 
-    public static void setDefaultThrowLogger(IBaseLogger logger){
+    public static void setDefaultThrowLogger(IThrowableLogger logger){
         defaultThrowLogger = logger;
     }
 
-
     private String message;
 
-    private IBaseLogger throwableLogger;
+    private IThrowableLogger throwableLogger;
 
     public ABaseException(){}
 
@@ -23,16 +26,16 @@ public class ABaseException extends Exception{
         throwableLogger = defaultThrowLogger;
     }
 
-    public ABaseException(String message, IBaseLogger throwableLogger){
+    public ABaseException(String message, IThrowableLogger throwableLogger){
         this.message = message;
         this.throwableLogger = throwableLogger;
     }
 
-    public IBaseLogger getThrowableLogger() {
+    public IThrowableLogger getThrowableLogger() {
         return throwableLogger;
     }
 
-    public void setThrowableLogger(IBaseLogger throwableLogger) {
+    public void setThrowableLogger(IThrowableLogger throwableLogger) {
         this.throwableLogger = throwableLogger;
     }
 
@@ -45,8 +48,22 @@ public class ABaseException extends Exception{
         this.message = message;
     }
 
-    public void log(){
-        getThrowableLogger().logErr(message);
+
+    @Override
+    public void printStackTrace() {
+        if( getThrowableLogger() != null){
+            getThrowableLogger().logException(this);
+        }else{
+            super.printStackTrace();
+        }
+    }
+
+    public String getSerializedStacktrace(){
+        StringBuilder serializedStacktrace = new StringBuilder();
+        for(StackTraceElement stackTraceElement : getStackTrace()){
+            serializedStacktrace.append(stackTraceElement.toString()).append("\n");
+        }
+        return serializedStacktrace.toString();
     }
 
 }

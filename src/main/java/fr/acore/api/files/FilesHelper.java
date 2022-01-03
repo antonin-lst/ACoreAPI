@@ -101,6 +101,22 @@ public interface FilesHelper {
         return null;
     }
 
+    //permet de décrire un tableau de chaine de caractère dans un PrintStream
+    public default void printIndexedString(PrintStream printStream, Map<Integer, String> contents) {
+        for(int i = 0; i < contents.size(); i++) printStream.println(contents.get(i));
+    }
+
+    public default boolean printIndexedString(Path path, Map<Integer, String> contents){
+        try {
+            PrintStream outputStream;
+            printIndexedString(outputStream = new PrintStream(Files.newOutputStream(path)), contents);
+            outputStream.close();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
     //permet de convertir un fichier en une list de chaine de caractère
     public default List<String> fileToListedString(Path pathToFile){
         try {

@@ -9,10 +9,17 @@ Interface de base d'un logger
 import fr.acore.api.logger.log.ILog;
 import fr.acore.api.logger.transformer.ILogTransformer;
 
+import java.util.List;
+
 public interface IBaseLogger {
 
     //format
     public String getMessageFormat();
+    public void setMessageFormat(String format);
+
+    //gestion des transformer par defaults
+    public List<ILogTransformer> getDefaultTransformers();
+    public void addDefaultTransformer(ILogTransformer transformer);
 
     //methode de logging
     public void log(ILog log);

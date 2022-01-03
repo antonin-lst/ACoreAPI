@@ -2,6 +2,8 @@ package fr.acore.api.project;
 
 import fr.acore.api.exception.ABaseException;
 import fr.acore.api.logger.IBaseLogger;
+import fr.acore.api.logger.IFileLogger;
+import fr.acore.api.logger.IThrowableLogger;
 import fr.acore.api.reflection.ReflectionHelper;
 
 import java.io.File;
@@ -26,16 +28,16 @@ public interface IProject extends ReflectionHelper {
             File logsFile = new File(getProjectDirectory(), "logs");
             if(!logsFile.exists()) logsFile.mkdir();
 
-            Object logger = Class.forName("fr/acore/logger/impl/BasicExceptionThrowLogger").newInstance();
-            invokeMethod(getMethod(logger, "setFile"), new File(logsFile, "errorLog.txt"));
+            IFileLogger logger = (IFileLogger) Class.forName("fr.acore.logger.impl.BasicExceptionThrowLogger").newInstance();
+            logger.setFile(new File(logsFile, "errorLog.txt"));
 
-            setThrowLogger((IBaseLogger) logger);
+            setThrowLogger((IThrowableLogger) logger);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-    public default void setThrowLogger(IBaseLogger logger){
+    public default void setThrowLogger(IThrowableLogger logger){
         ABaseException.setDefaultThrowLogger(logger);
     }
 

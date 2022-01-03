@@ -1,10 +1,12 @@
 package fr.acore.api.config;
 
+import fr.acore.api.files.FilesHelper;
 import fr.acore.api.parser.conf.IParsedConfiguration;
 import fr.acore.api.parser.node.INodeValue;
 import fr.acore.api.string.IStringHelper;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -20,7 +22,11 @@ Interface d'une classe de configuration
 
  */
 
-public interface ISetupable extends IStringHelper {
+public interface IConfiguration extends IStringHelper, FilesHelper {
+
+	public String getInternalPath();
+
+	public File getFile();
 
 	//Object qui englobe un fichier de configuration cible parsée en ram
 	public IParsedConfiguration<?,?> getParsedConfiguration();
@@ -46,6 +52,12 @@ public interface ISetupable extends IStringHelper {
 	@Target(ElementType.FIELD)
 	public static @interface Node {
 		String getNodeRoot();
+	}
+
+	public default void loadFromInternalResource() throws IOException {
+		if(!getFile().exists()) getFile().createNewFile();
+
+		fileFromResource(getFile().toPath(), getInternalPath(), getClass().getClassLoader());
 	}
 
 	//getter des nodes config
