@@ -10,15 +10,12 @@ public interface ReflectionHelper {
      *
      */
 
-    public default Method getMethod(Object obj, String name) throws Exception{
-        Method method = obj.getClass().getDeclaredMethod(name);
-        if(!method.isAccessible()) method.setAccessible(true);
-
-        return method;
+    public default Method getMethod(Object obj, String name, Class<?>... clazz) throws Exception{
+        return getMethod(obj.getClass(), name, clazz);
     }
 
-    public default Method getMethod(Object obj, String name, Class<?>... clazz) throws Exception{
-        Method method = obj.getClass().getDeclaredMethod(name, clazz);
+    public default Method getMethod(Class<?> clazz, String name, Class<?>... argumentsClazz) throws Exception{
+        Method method = clazz.getDeclaredMethod(name, argumentsClazz);
         if(!method.isAccessible()) method.setAccessible(true);
 
         return method;
