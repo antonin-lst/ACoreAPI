@@ -1,14 +1,21 @@
 package fr.acore.api.optspec;
 
+
+import fr.acore.api.string.NonTypedObject;
+
 import java.util.List;
 
 public interface IOptionSpecResultSet {
 
     public List<IUnrecognizedOptionSpec> getUnrecognizedOptions();
 
-    public List<IOptionSpec<?>> getLoadedOptionSpec();
+    public boolean isUnrecognizedOpt(String unrecognizedOptTag);
+    public boolean getUnrecognizedOpt(String unrecognizedOptTag);
 
-    public <T> T valueOf(String optTag);
-    public boolean contain(String optTag);
+    public List<ITypedOptionSpec<?>> getLoadedOptionSpec();
+
+    public boolean isRecognizedOpt(String optTag);
+    public NonTypedObject getOpt(String optTag);
+
 
 }

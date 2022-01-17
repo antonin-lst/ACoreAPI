@@ -5,9 +5,9 @@ import fr.acore.api.logger.transformer.ILogToFileTransformer;
 import java.io.File;
 import java.util.List;
 
-public interface ILogToFile {
+public interface ILogToFile<T extends ILog> {
 
-    public ILog getEncapsulatedLog();
+    public T getEncapsulatedLog();
     public File getDestination();
 
     public List<ILogToFileTransformer> getAttachedTransformers();

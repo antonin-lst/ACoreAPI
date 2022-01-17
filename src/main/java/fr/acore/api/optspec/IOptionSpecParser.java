@@ -7,7 +7,7 @@ public interface IOptionSpecParser {
     public boolean allowUnrecognizedOptions();
     public void setAllowUnrecognizedOptions();
 
-    public <T> IOptionSpec<T> addOpt(String optTag, Class<T> optType);
+    public <T> ITypedOptionSpec<T> addOpt(String optTag, Class<T> optType);
 
     public IOptionSpecResultSet parse(String... args);
 

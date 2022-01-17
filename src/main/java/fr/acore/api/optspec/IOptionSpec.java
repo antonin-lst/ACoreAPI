@@ -1,20 +1,13 @@
 package fr.acore.api.optspec;
 
-public interface IOptionSpec<T> {
+public interface IOptionSpec {
 
     public String getTag();
 
-    public boolean isRequired();
-    public IOptionSpec<T> setRequired();
+    public String getParsedArg();
+    public void setParsedArg(String arg);
 
-    public boolean isArgRequired();
-    public IOptionSpec<T> setArgsRequired();
-
-    public T getDefaultArg();
-    public IOptionSpec<T> setDefaultArg(T defaultArg);
-
-    public default boolean hasDefaultValue(){
-        return getDefaultArg() != null;
+    public default boolean hasParsedArg(){
+        return getParsedArg() != null && !getParsedArg().isEmpty();
     }
-
 }

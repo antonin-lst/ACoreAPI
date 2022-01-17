@@ -1,4 +1,4 @@
 package fr.acore.api.optspec;
 
-public interface IUnrecognizedOptionSpec {
+public interface IUnrecognizedOptionSpec extends IOptionSpec{
 }

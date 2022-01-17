@@ -1,4 +1,4 @@
-package fr.acore.api.player;
+package fr.acore.api.network.player;
 
 import java.util.UUID;
 

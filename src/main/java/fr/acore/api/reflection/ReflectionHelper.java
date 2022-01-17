@@ -1,7 +1,10 @@
 package fr.acore.api.reflection;
 
+import fr.acore.api.string.NonTypedObject;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Collection;
 
 public interface ReflectionHelper {
 
@@ -48,32 +51,32 @@ public interface ReflectionHelper {
         return field;
     }
 
-    public default boolean injectField(Field field, Object instance, Object value) throws IllegalAccessException {
+    public default boolean injectField(Field field, Object instance, NonTypedObject value) throws IllegalAccessException {
         try{
             if(!field.isAccessible()) field.setAccessible(true);
 
             Class<?> fieldType = field.getType();
-            String serializedValue = String.valueOf(value);
 
             if(fieldType.equals(int.class) || fieldType.equals(Integer.class)){
-                field.setInt(instance, Integer.parseInt(serializedValue));
+                field.setInt(instance, value.getAsInt());
             }else if(fieldType.equals(double.class) || fieldType.equals(Double.class)){
-                field.setDouble(instance, Double.parseDouble(serializedValue));
+                field.setDouble(instance, value.getAsDouble());
             }else if(fieldType.equals(float.class) || fieldType.equals(Float.class)){
-                field.setFloat(instance, Float.parseFloat(serializedValue));
+                field.setFloat(instance, value.getAsFloat());
             }else if(fieldType.equals(boolean.class) || fieldType.equals(Boolean.class)){
-                field.setBoolean(instance, Boolean.parseBoolean(serializedValue));
+                field.setBoolean(instance, value.getAsBoolean());
             }else if(fieldType.equals(long.class) || fieldType.equals(Long.class)){
-                field.setLong(instance, Long.parseLong(serializedValue));
+                field.setLong(instance, value.getAsLong());
+            }else if(fieldType.isAssignableFrom(Collection.class) && value.isAdaptableCollection()){
+                field.set(instance, value.getAsAdaptedList(value.getListAdapter()));
+            }else if(fieldType.equals(String.class)){
+               field.set(instance, value.getAsString());
             }else{
-                field.set(instance, value);
+                field.set(instance, value.getObject());
             }
             return true;
-
         }catch (Exception ex){
             return false;
         }
-
     }
-
 }

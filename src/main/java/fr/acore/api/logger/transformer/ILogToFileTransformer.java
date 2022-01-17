@@ -1,9 +1,11 @@
 package fr.acore.api.logger.transformer;
 
+import fr.acore.api.logger.log.EncapsulatedLogFormat;
+import fr.acore.api.logger.log.ILog;
 import fr.acore.api.logger.log.ILogToFile;
 
-public interface ILogToFileTransformer extends ILogTransformer{
+public interface ILogToFileTransformer<T extends ILogToFile<U>, U extends ILog> extends ILogTransformer<U> {
 
-    public <T extends ILogToFile> T transformForFile(String logToFileFormat, T logToFile);
+    public T transformForFile(EncapsulatedLogFormat<T> encapsulatedLogFormat);
 
 }

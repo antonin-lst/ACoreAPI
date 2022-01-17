@@ -4,26 +4,31 @@ package fr.acore.api.logger;
 
 Interface de base d'un logger
 
+
+ T est la class Log erite de ILog
+ U est la class mere de transformation des log erite de ILogTransformer
+
  */
 
 import fr.acore.api.logger.log.ILog;
+import fr.acore.api.logger.log.ILogToFile;
 import fr.acore.api.logger.transformer.ILogTransformer;
 
 import java.util.List;
 
-public interface IBaseLogger {
+public interface IBaseLogger<T extends ILog, U extends ILogTransformer<T>> {
 
     //format
     public String getMessageFormat();
     public void setMessageFormat(String format);
 
     //gestion des transformer par defaults
-    public List<ILogTransformer> getDefaultTransformers();
-    public void addDefaultTransformer(ILogTransformer transformer);
+    public List<U> getDefaultTransformers();
+    public void addDefaultTransformer(U transformer);
 
     //methode de logging
-    public void log(ILog log);
-    public void log(ILog log, ILogTransformer... transformers);
+    public void log(T log);
+    public void log(T log, U... transformers);
 
     //gestion des Strings
     public void log(String... args);
