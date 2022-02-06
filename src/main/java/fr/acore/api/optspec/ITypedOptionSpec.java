@@ -1,7 +1,5 @@
 package fr.acore.api.optspec;
 
-import fr.acore.api.string.NonTypedObject;
-
 public interface ITypedOptionSpec<T>  extends IOptionSpec {
 
     public boolean isRequired();

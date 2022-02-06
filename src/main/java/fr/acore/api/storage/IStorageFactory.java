@@ -8,7 +8,7 @@ import fr.acore.api.storage.factory.IDataFactory;
 import java.util.List;
 
 
-public interface IStorageManager {
+public interface IStorageFactory {
 	
 	/*
 	 * 

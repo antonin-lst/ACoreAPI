@@ -2,10 +2,7 @@ package fr.acore.api.files;
 
 import java.io.*;
 import java.nio.file.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Stream;
 
 public interface FilesHelper {
@@ -73,6 +70,20 @@ public interface FilesHelper {
             ex.printStackTrace();
         }
 
+    }
+
+    public default List<String> resourceToListedString(String resource, ClassLoader classLoader){
+        List<String> result = new ArrayList<>();
+        try{
+            BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(classLoader.getResourceAsStream(resource))));
+            String line;
+            while((line = reader.readLine()) != null){
+                result.add(line);
+            }
+        }catch (Exception ex){
+
+        }
+        return result;
     }
 
     //permet de convertir un fichier en une chaine de caractère

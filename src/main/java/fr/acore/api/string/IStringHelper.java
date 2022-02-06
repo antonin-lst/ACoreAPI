@@ -6,9 +6,6 @@ Helper chaines de caracteres
 
  */
 
-import fr.acore.api.list.IListAdapter;
-import fr.acore.api.transform.ITransformer;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,67 +23,6 @@ public interface IStringHelper {
     public default String replace(String chaine, String regex, String data) {
         chaine = chaine.replace(regex, data);
         return chaine;
-    }
-
-    /*
-
-    methode utile pour la création rapide d'instance de l'interface NonTypedObject
-
-     */
-
-    public default NonTypedObject ntoPrimitive(Object obj){
-
-        return nto(obj, new NonTypedObject.DefaultStringTransformer(), null);
-    }
-
-    public default NonTypedObject ntoStringAdaptable(Object obj, ITransformer<String, NonTypedObject> stringTransformer){
-        return nto(obj, stringTransformer, null);
-    }
-
-    public default NonTypedObject ntoListAdaptable(Object obj, IListAdapter<?, NonTypedObject> listAdapter){
-        return nto(obj, new NonTypedObject.DefaultStringTransformer(), listAdapter);
-    }
-
-    public default NonTypedObject ntoQuotedStringListAdaptable(Object obj, IListAdapter<?, NonTypedObject> listAdapter){
-        return nto(obj, new NonTypedObject.QuotedStringTransformer(), listAdapter);
-    }
-
-    public default NonTypedObject ntoQuoted(Object obj){
-        return nto(obj, new NonTypedObject.QuotedStringTransformer(), null);
-    }
-
-
-    public default NonTypedObject nto(Object obj, ITransformer<String, NonTypedObject> stringTransformer, IListAdapter<?, NonTypedObject> listAdapter){
-        return new NonTypedObject() {
-
-            private ITransformer<String, NonTypedObject> stringTransformer;
-            private IListAdapter<?, NonTypedObject> adapter = listAdapter;
-
-            @Override
-            public Object getObject() {
-                return obj;
-            }
-
-            @Override
-            public ITransformer<String, NonTypedObject> getStringTransformer() {
-                return null;
-            }
-
-            @Override
-            public void setStringTransformer(ITransformer<String, NonTypedObject> stringTransformer) {
-
-            }
-
-            @Override
-            public <T> IListAdapter<T, NonTypedObject> getListAdapter() {
-                return (IListAdapter<T, NonTypedObject>) adapter;
-            }
-
-            @Override
-            public void setListAdapter(IListAdapter<?, NonTypedObject> adapter) {
-                this.adapter = adapter;
-            }
-        };
     }
 
 

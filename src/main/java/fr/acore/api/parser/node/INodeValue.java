@@ -6,7 +6,7 @@ Interface d'une node avec une value
 
  */
 
-import fr.acore.api.string.NonTypedObject;
+import fr.acore.api.reflection.NonTypedObject;
 
 public interface INodeValue extends INode, NonTypedObject {
 

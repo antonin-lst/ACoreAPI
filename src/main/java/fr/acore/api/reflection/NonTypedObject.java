@@ -1,20 +1,19 @@
-package fr.acore.api.string;
+package fr.acore.api.reflection;
 
-import fr.acore.api.list.IListAdapter;
-import fr.acore.api.transform.ITransformer;
+import fr.acore.api.adapter.IComplexObjectAdapter;
+import fr.acore.api.adapter.IListAdapter;
+import fr.acore.api.adapter.IAdapter;
+import fr.acore.api.string.IStringHelper;
 
 import java.util.Collections;
 import java.util.List;
 
-public interface NonTypedObject extends IStringHelper{
+public interface NonTypedObject extends IStringHelper {
 
     public Object getObject();
 
-    public ITransformer<String, NonTypedObject> getStringTransformer();
-    public void setStringTransformer(ITransformer<String, NonTypedObject> stringTransformer);
-
     public default String getAsString(){
-        return getStringTransformer().transform(this);
+        return getStringAdapter().transform(this);
     }
     public default double getAsDouble() {
         return Double.parseDouble(getAsString());
@@ -35,44 +34,44 @@ public interface NonTypedObject extends IStringHelper{
     public default  <T extends Enum<T>> T getAsEnumElement(Class<T> enumClazz){
         return (T) Enum.valueOf(enumClazz, getAsString());
     }
-
-    public default <T> List<T> getAsAdaptedList(IListAdapter<T, NonTypedObject> adapter){
-        return adapter.transform(this);
-    }
-    public void setListAdapter(IListAdapter<?, NonTypedObject> adapter);
-    public <T> IListAdapter<T, NonTypedObject> getListAdapter();
     public default <T> List<T> getAsList(){
         return (List<T>) getObject();
     }
+    public default <T> List<T> getAsAdaptedList(IListAdapter<T, NonTypedObject> adapter){
+        return adapter.transform(this);
+    }
+    public default <T> T getAsComplexObject(IAdapter<T, NonTypedObject> complexObjectAdapter){
+        return complexObjectAdapter.transform(this);
+    };
+
+    public IAdapter<String, NonTypedObject> getStringAdapter();
+    public void setStringAdapter(IAdapter<String, NonTypedObject> stringTransformer);
+    public <T> IListAdapter<T, NonTypedObject> getListAdapter();
+    public void setListAdapter(IListAdapter<?, NonTypedObject> adapter);
+    public <T> IComplexObjectAdapter<T> getComplexObjectAdapter();
+    public void setComplexObjectAdapter(IComplexObjectAdapter<?> complexObjectAdapter);
 
     public default boolean isInt(){
         return isInt(getAsString());
     }
-
     public default boolean isDouble(){
         return isDouble(getAsString());
     }
-
     public default boolean isFloat(){
         return isFloat(getAsString());
     }
-
     public default boolean isByte(){
         return isByte(getAsString());
     }
-
     public default boolean isLong(){
         return isLong(getAsString());
     }
-
     public default boolean isBoolean(){
         return isBoolean(getAsString());
     }
-
     public default boolean isNumber() {
         return isByte() || isDouble() || isFloat() || isInt();
     }
-
     public default boolean isPrimitive(){ return isBoolean() || isNumber();}
     public default boolean isCollection(){
         return Collections.class.isAssignableFrom(getObject().getClass());
@@ -85,7 +84,7 @@ public interface NonTypedObject extends IStringHelper{
     }
 
 
-    public static class DefaultStringTransformer implements ITransformer<String, NonTypedObject>{
+    public static class DefaultStringTransformer implements IAdapter<String, NonTypedObject> {
         @Override
         public String transform(NonTypedObject arg) {
             return String.valueOf(arg.getObject());
