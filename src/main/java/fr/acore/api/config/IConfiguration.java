@@ -34,9 +34,6 @@ public interface IConfiguration extends IStringHelper, FilesHelper {
 	//charger le fichier de configuration
 	public void load();
 
-	//re charger les fields de configuration de la class
-	public void reloadFromParsedConfiguration();
-
 	//sauvegarde les fields de configuration dans le fichier de configurationParser
 	public void save();
 

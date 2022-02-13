@@ -1,4 +1,4 @@
 package fr.acore.api.network.server;
 
-public interface IProxy {
+public interface IProxy extends IServer{
 }

@@ -1,6 +1,6 @@
 package fr.acore.api.time.timer;
 
-import fr.acore.api.time.utils.TimeHelper;
+import fr.acore.api.time.TimeHelper;
 
 	/*
 

@@ -1,4 +1,4 @@
-package fr.acore.api.time.utils;
+package fr.acore.api.time;
 
 import java.util.concurrent.TimeUnit;
 

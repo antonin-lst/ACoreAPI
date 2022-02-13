@@ -11,6 +11,8 @@ public interface ICommandFactory {
 
     public ICommandExecutor getCommandExecutor(ICommand<?> command);
 
+    public ICommandStatus<?> findAndExecuteCommand(ICommandSender commandExecutor, String command);
+
     public default ICommandExecutor getCommandExecutor(String command){
         return getCommandExecutor(getRootCommand(command));
     }

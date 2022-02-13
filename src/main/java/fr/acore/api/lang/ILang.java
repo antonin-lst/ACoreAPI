@@ -24,10 +24,10 @@ public interface ILang<T extends IParsedConfiguration<?,?>> {
     public boolean isLoaded();
     public void setLoaded(boolean loaded);
 
-    public ILangTransformer getLangTransformer();
+    public ILangAdapter getLangTransformer();
 
     public default String translate(String origin){
         return translate(origin, getLangTransformer());
     }
-    public String translate(String origin, ILangTransformer transformer);
+    public String translate(String origin, ILangAdapter transformer);
 }
